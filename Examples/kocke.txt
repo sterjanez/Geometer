@@ -1,0 +1,14 @@
+j=-100
+label zunanja
+
+i=-5000
+label zanka
+kocka(i,j,0,5,0,0,1/2+1/2*cos(j/10)*cos(j/10),0.7,1/2 + 1/2*cos(j/15)*cos(j/15))
+i=i+15
+if i<300
+goto zanka
+
+j=j+15
+
+if j < 100
+goto zunanja

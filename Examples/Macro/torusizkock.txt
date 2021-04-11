@@ -1,0 +1,39 @@
+args x0,y0,z0,rveliki,rmali,akocke,stkock
+
+pi=arcsin(1)*2
+
+dalfa = 2*pi / stkock
+
+i = 0
+label L1
+
+alfa = i * dalfa
+rs = rveliki + rmali * cos(alfa)
+xs = x0
+ys = y0
+zs = z0 + rmali * sin(alfa)
+dalfas = dalfa * rmali / rs
+stkocks = round(2*pi / dalfas)
+dalfas = 2*pi / stkocks
+
+j = 0.
+label L2
+
+alfas = j * dalfas
+xk = xs + rs * cos(alfas+pi/2)
+yk = ys + rs * sin(alfas+pi/2)
+zk = zs
+a = akocke
+
+fizasuk = alfa
+alfazasuk = alfas
+
+kocka(xk, yk, zk, a, alfazasuk, fizasuk, (1+cos(alfas))/2, (1+sin(alfas-alfa))/2, (1+cos(alfa))/2)
+
+j = j + 1
+if j != stkocks
+goto L2
+
+i = i + 1
+if i != stkock
+goto L1

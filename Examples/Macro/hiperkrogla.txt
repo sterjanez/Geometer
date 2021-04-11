@@ -1,0 +1,30 @@
+args x0,y0,z0,r,n,a,rr,gg,bb
+
+pi=2*arcsin(1)
+fi=pi/n
+d=2*r*sin(fi/2)
+kocka(x0,y0,z0-r,a,0,0,rr,gg,bb)
+kocka(x0,y0,z0+r,a,0,0,rr,gg,bb)
+
+i=1
+label l1
+
+beta=fi*i-pi/2
+q=r*cos(beta)
+z=r*sin(beta)
+
+m=round(pi/arcsin(d/(2*q)))
+
+psi=2*pi/m
+
+j=1
+label l2
+hi=psi*(j-1)
+kocka(x0+q*cos(hi),y0+q*sin(hi),z0+z,a,hi-pi/2,beta,rr,gg,bb)
+j=j+1
+if j<=m
+goto l2
+
+i=i+1
+if i<=n-1
+goto l1

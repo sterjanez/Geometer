@@ -1,0 +1,21 @@
+args x0,y0,z0,n,vis,a,r,d,R,G,B
+//n=100
+//vis=23
+//a=2
+//r=50
+//d=1.5
+
+pi2=arcsin(1)*4
+
+j=1
+label l1
+i=1
+label l2
+kot=(i-1)/n*pi2
+kocka(x0+r*cos(kot),y0+r*sin(kot),z0-30+(a+d)*(j-1/2-vis/2),a,kot,0,R,G,B)
+i=i+1
+if i!=n+1
+goto l2
+j=j+1
+if j!=vis+1
+goto l1

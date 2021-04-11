@@ -1,0 +1,11 @@
+st_kosev=15
+veliki_r=300
+vis_kosev=10
+mali_r=50
+
+kot=0
+label zanka
+valj(veliki_r*cos(kot), veliki_r*sin(kot), -30, 20, vis_kosev, 8, mali_r, 5, cos(kot)*cos(kot), sin(3*kot)*sin(3*kot),0.8)
+kot = kot + arctan(1)*8/st_kosev
+if kot < arctan(1)*8
+goto zanka

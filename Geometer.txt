@@ -1,0 +1,150 @@
+Geometer - a program for drawing 3D images
+==========================================
+
+Janez Šter, March 2020
+
+
+Settings:
+=========
+
+Camera
+------
+
+Camera in its original position (when all parameters are set to 0)
+is located at origin (0,0,0) and is turned such that moving forward would
+increase y component, moving right would increase x and moving up would
+increase z. You can change this default position by setting the following
+parameters (all angles are in radians):
+
+- (X,Y,Z): location of camera
+
+- Theta: rotating camera left and right (positive Theta turns the camera left)
+
+- Phi: rotating camera up and down (up when Phi is positive)
+
+- Psi: rotating camera around center
+
+- Orient toward (0,0,0): camera is rotated towards the point (0,0,0)
+
+Light Source
+------------
+
+In its original setting, light rays are directed along y axis, toward increasing y.
+Change this by setting:
+
+- Theta: rotating light source left/right
+
+- Phi: rotating up/down
+
+Macro Directory: location of macro files
+----------------
+
+BMP Settings
+------------
+
+- Width/Height: size of BMP image in pixels
+
+- R/G/B: color of image background, parameters are between 0 and 1; R=G=B=0 is black
+  and R=G=B=1 is white, R=1, G=B=0 is red etc.
+
+- Pixels/Unit Ratio: number of pixels per 1 unit
+
+Save Settings: settings are automatically saved in the file Geometer.ini
+--------------
+
+
+Macro and Input File Syntax
+===========================
+
+In the procedure of generating the output BMP file, the program opens the main input
+file and then all macro files which are called from the main file or from other called
+macro files. Each of those files must follow the syntax described below.
+
+All files should be in text (*.txt) format. Program ignores everything after the double
+shash // sign. Empty lines or lines with just spaces and tabulators are ignored.
+The program syntax is case sensitive.
+
+---------------------------
+
+In the following, we write AS to mean "arbitrary number of space and tabulator characters",
+and AS1 to mean "arbitrary number, but at least one, space or tabulator character"
+
+===========================
+
+(1) Line with arguments:
+
+Syntax: AS args AS1 arg1 AS , AS arg2 AS , AS arg3 AS , ...
+
+This line can only appear as the first line of the file (except for comment lines and empty
+lines), but not in the main input file (input file should not have parameters). Number
+of arguments must be at least one, and each of them must be a valid variable name.
+
+Variable name: can contain any number 0-9, any upper case or lower case letter a-z, A-Z,
+and the underline _ character. The first character must not be a number. Besides that,
+a variable name must not be one of the following reserved words:
+
+args, label, goto, if, exp, log, sin, cos, tan, arcsin, arccos, arctan, round, triangle
+
+
+(2) Label:
+
+Syntax: AS label AS1 name
+
+Name is a variable name. This command is used together with goto statements.
+
+(3) Goto statement:
+
+Syntax: AS goto AS1 name
+
+Name is a label name (a new location where the procedure continues).
+
+(4) If statement:
+
+Syntax: AS if AS1 expression1 inequality_sign expression2
+
+inequality_sign is one of the following: ==, !=, <=, >=, <, >
+Equalities in evaulation of if statements are computed up to some program-defined precision.
+
+expression1 and expression2 are valid expressions (see below).
+
+If statement executes the statement after it if and only if the given inequality holds,
+otherwise it jumps to the line after it.
+
+(5) Assignment:
+
+Syntax AS var AS = expression
+
+var is a variable name.
+
+expression is a valid expression, which is defined inductively as follows:
+- Each constant (arbitrarily many numbers 0-9, decimal point, arbitrarily many numbers 0.9)
+  and each variable name is a valid expression.
+- If a and b are valid expressions then the following are also valid expressions:
+  AS a AS, (a), -a, a+b, a-b, a*b, a/b, a^b, exp(a), log(a), sin(a), cos(a), tan(a),
+  arcsin(a), arccos(a), arctan(a), round(a).
+
+When evaluating the expression, ^ has higher priority than * and /, and * and / have higher
+priority than + and -. Power (^) only works with positive base number.
+
+(6) Triangle:
+
+Syntax: AS triangle( AS arg1 AS , AS arg2 AS , ... , AS arg12 AS ) AS
+
+Each of the arguments is a valid expressions. The first 9 arguments are triangle vertices
+and the last 3 arguments are the color of the triangle (red, green, blue).
+Color parameters must be between 0 and 1.
+
+(7) Macro call
+
+Syntax: AS macro_name( AS arg1 AS , AS arg2 AS , ... , AS argn AS ) AS
+
+or macro_name when the macro is called with no arguments.
+
+Macro name is a valid variable name, and arguments are valid expressions.
+
+Note 1: Even though the program does distinguish between upper/lower case letters, the
+operating file managing system does not, so calling macros will always open the same file,
+regardless of upper/lower case letters.
+
+Note 2: The program distinguishes between label names, variable names and macro names,
+so the names are allowed to be repeated when used for different purposes.
